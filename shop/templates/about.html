@@ -1,0 +1,552 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درباره ما - باشگاه ورزشی</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* Header Section */
+        .about-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .about-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Values Section */
+        .values-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .value-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .value-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .value-description {
+            color: #666;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .team-member {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .member-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid #f8f9fa;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .member-position {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: white;
+            border: 4px solid #667eea;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-description {
+            color: #666;
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 19px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- About Header -->
+    <section class="about-header">
+        <div class="container">
+            <h1 class="about-title">درباره ما</h1>
+            <p class="about-subtitle">شناخت باشگاه ورزشی ما و مسیر موفقیت ما</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">داستان ما</h2>
+                    <p class="about-content">
+                        باشگاه ورزشی ما در سال 1385 با هدف ارائه خدمات ورزشی با کیفیت و حرفه‌ای تأسیس شد. ما باور داریم که ورزش نه تنها برای سلامت جسمی، بلکه برای سلامت روحی و روانی نیز ضروری است. در این مسیر، همواره تلاش کرده‌ایم تا بهترین امکانات و خدمات را برای اعضای خود فراهم کنیم.
+                    </p>
+                    <p class="about-content">
+                        امروزه با گذشت بیش از 15 سال از فعالیت حرفه‌ای ما، باشگاه ورزشی ما به یکی از معتبرترین مراکز ورزشی در منطقه تبدیل شده است. ما با بهره‌گیری از کادر مجرب و تجهیزات پیشرفته، محیطی امن و دلنشین برای ورزشکاران در تمام سطوح فراهم کرده‌ایم.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="{% static 'club/gym2.jpg' %}" alt="درباره باشگاه">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">ارزش‌های ما</h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-box">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="value-title">اشتیاق</h3>
+                        <p class="value-description">عشق به ورزش و اشتیاق برای کمک به دیگران برای رسیدن به اهدافشان</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-box">
+                        <div class="value-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 class="value-title">تعهد</h3>
+                        <p class="value-description">تعهد به ارائه بهترین خدمات و تجربه ورزشی برای اعضا</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-box">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="value-title">جامعیت</h3>
+                        <p class="value-description">فراهم کردن محیطی فراگیر برای افراد با تمام سطوح توانایی</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-box">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="value-title">نوآوری</h3>
+                        <p class="value-description">استفاده از روش‌ها و تجهیزات نوین برای بهبود تجربه ورزشی</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">سیر تحول باشگاه</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1385</div>
+                        <h3 class="timeline-title">تأسیس باشگاه</h3>
+                        <p class="timeline-description">شروع فعالیت باشگاه با یک سالن بدنسازی کوچک و محدود</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1390</div>
+                        <h3 class="timeline-title">توسعه امکانات</h3>
+                        <p class="timeline-description">اضافه شدن استخر و سالن فوتسال به مجموعه ورزشی</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1395</div>
+                        <h3 class="timeline-title">نوسازی تجهیزات</h3>
+                        <p class="timeline-description">به‌روزرسانی کامل دستگاه‌های ورزشی و تجهیزات باشگاه</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1399</div>
+                        <h3 class="timeline-title">افتتاح شعبه جدید</h3>
+                        <p class="timeline-description">افتتاح شعبه دوم باشگاه با امکانات پیشرفته‌تر</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1401</div>
+                        <h3 class="timeline-title">دریافت گواهینامه بین‌المللی</h3>
+                        <p class="timeline-description">کسب گواهینامه استاندارد بین‌المللی برای کیفیت خدمات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">تیم ما</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="{% static 'club/manager.jpg' %}" alt="مدیر باشگاه">
+                        </div>
+                        <h3 class="member-name">احمد</h3>
+                        <p class="member-position">مدیر باشگاه</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="{% static 'club/co gym.jpg' %}" alt="سرمربی بدنسازی">
+                        </div>
+                        <h3 class="member-name">رضا</h3>
+                        <p class="member-position">سرمربی بدنسازی</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="{% static 'club/co pool.jpg' %}" alt="مربی شنا">
+                        </div>
+                        <h3 class="member-name">سارا</h3>
+                        <p class="member-position">مربی شنا</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="{% static 'club/co un.jpg' %}" alt="مربی فوتبال">
+                        </div>
+                        <h3 class="member-name">کیمیا</h3>
+                        <p class="member-position">مربی فوتبال</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+{% endblock content %}

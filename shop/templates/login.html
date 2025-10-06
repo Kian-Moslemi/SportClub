@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به سیستم</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+        }
+        .login-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .login-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .login-header .logo {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .login-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .login-header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+        .login-body {
+            padding: 30px 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px 0 0 8px;
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+        .divider span {
+            padding: 0 15px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .login-footer {
+            text-align: center;
+            padding: 0 25px 25px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .login-footer a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .password-toggle {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <p>ورود به حساب کاربری</p>
+            </div>
+            
+            <div class="login-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="id_username" class="form-label" username="username">نام کاربری</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person"></i>
+                            </span>
+                            <input type="text" class="form-control" name="username" id="id_username" placeholder="نام کاربری خود را وارد کنید" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label  class="form-label" password="password">رمز عبور</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock"></i>
+                            </span>
+                            <input type="password" class="form-control" name="password" id="id_password"  placeholder="رمز عبور خود را وارد کنید" required>
+                            <span class="input-group-text password-toggle" onclick="togglePassword()">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-login">
+                        <i class="bi bi-box-arrow-in-left me-2"></i>
+                        ورود به سیستم
+                    </button>
+                </form>
+                
+                <br><br>
+
+            <div class="login-footer">
+                <p>حساب کاربری ندارید؟ <a href="{% url 'signin' %}">ثبت‌نام کنید</a></p>
+                <p class="mb-0 mt-2">&copy; {% now "Y" %} سیستم نوبت‌دهی. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('id_password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('id_username').focus();
+        });
+    </script>
+</body>
+</html>

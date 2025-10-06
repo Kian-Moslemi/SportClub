@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت‌نام</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .signup-container {
+            max-width: 450px;
+            width: 100%;
+        }
+        .signup-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .signup-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .signup-header .logo {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .signup-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .signup-header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+        .signup-body {
+            padding: 30px 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px 0 0 8px;
+        }
+        .btn-signup {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+        .divider span {
+            padding: 0 15px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .signup-footer {
+            text-align: center;
+            padding: 0 25px 25px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .signup-footer a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .signup-footer a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .password-toggle {
+            cursor: pointer;
+        }
+        .password-strength {
+            height: 5px;
+            margin-top: 8px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .password-strength-bar {
+            height: 100%;
+            border-radius: 5px;
+            width: 0;
+            transition: all 0.3s;
+        }
+        .strength-weak {
+            background-color: #dc3545;
+            width: 33.33%;
+        }
+        .strength-medium {
+            background-color: #ffc107;
+            width: 66.66%;
+        }
+        .strength-strong {
+            background-color: #28a745;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <div class="logo">
+                    <i class="bi bi-person-plus"></i>
+                </div>
+                <h1>ایجاد حساب کاربری جدید</h1>
+            </div>
+            
+            <div class="signup-body">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                {% endif %}
+                                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_username" class="form-label">نام کاربری</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-person"></i>
+                            </span>
+                            <input type="text" class="form-control" name="username" id="id_username" placeholder="نام کاربری خود را وارد کنید" required>
+                        </div>
+                        <div class="invalid-feedback d-block">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_password1" class="form-label">رمز عبور</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock"></i>
+                            </span>
+                            <input type="password" class="form-control" name="password1" id="id_password1" placeholder="رمز عبور خود را وارد کنید" required>
+                            <span class="input-group-text password-toggle" onclick="togglePassword('id_password1', 'toggleIcon1')">
+                                <i class="bi bi-eye" id="toggleIcon1"></i>
+                            </span>
+                        </div>
+                        <div class="password-strength mt-2">
+                            <div class="password-strength-bar" id="passwordStrength"></div>
+                        </div>
+                        <div class="invalid-feedback d-block">
+                            {{ form.password1 }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_password2" class="form-label">تکرار رمز عبور</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password" class="form-control" name="password2" id="id_password2" placeholder="رمز عبور را تکرار کنید" required>
+                            <span class="input-group-text password-toggle" onclick="togglePassword('id_password2', 'toggleIcon2')">
+                                <i class="bi bi-eye" id="toggleIcon2"></i>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback d-block">
+                            {{ form.password2 }}
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-signup">
+                        <i class="bi bi-person-plus me-2"></i>
+                        ثبت‌نام
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>یا</span>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        ورود به حساب کاربری
+                    </a>
+                </div>
+            </div>
+            
+            <div class="signup-footer">
+                <p>قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'login' %}">وارد شوید</a></p>
+                <p class="mb-0 mt-2">&copy; {% now "Y" %} سیستم نوبت‌دهی. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(iconId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            }
+        }
+        document.getElementById('id_password1').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrength');
+            
+            strengthBar.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+            
+            if (password.length === 0) {
+                return;
+            }
+            
+            let strength = 0;
+            
+            if (password.length >= 8) {
+                strength += 1;
+            }
+            
+            if (/\d/.test(password)) {
+                strength += 1;
+            }
+            
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+                strength += 1;
+            }
+            
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                strength += 1;
+            }
+            
+            if (strength <= 2) {
+                strengthBar.classList.add('strength-weak');
+            } else if (strength === 3) {
+                strengthBar.classList.add('strength-medium');
+            } else {
+                strengthBar.classList.add('strength-strong');
+            }
+        });
+    </script>
+</body>
+</html>

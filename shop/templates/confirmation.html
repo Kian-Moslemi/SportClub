@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تایید نوبت‌ها</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .confirmation-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .slot-item {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="confirmation-card">
+                    <h2 class="text-center mb-4">تایید نوبت‌های انتخاب شده</h2>
+                    <div class="mb-4">
+                        <h4>اطلاعات شخصی</h4>
+                        <form method="POST" id="personalInfoForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">نام</label>
+                                    {{form.name}}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="last_name" class="form-label">نام خانوادگی</label>
+                                    {{form.last_name}}
+                                </div>
+                            </div>
+                                <div class="mb-3">
+                                    <label for="phoneNumber" class="form-label">شماره تلفن</label>
+                                    {{form.phone}}
+                                </div>
+                                <button class="btn btn-success" type="submit">
+                                تایید نهایی
+                                </button>
+                        </form>
+                    </div>
+                    <div class="mb-4">
+                        <h4>نوبت‌های انتخاب شده</h4>
+                        <div id="selectedSlotsList">
+                            {{slot.date}} - {{slot.start_time}}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-secondary" href="{% url 'schedule' service.id %}">بازگشت</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

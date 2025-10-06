@@ -1,0 +1,534 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات باشگاه - باشگاه ورزشی</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .services-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .services-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .services-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .services-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .services-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(102, 126, 234, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .service-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .service-description {
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .service-features {
+            margin-bottom: 25px;
+        }
+        
+        .service-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .service-feature i {
+            color: #667eea;
+            margin-left: 10px;
+        }
+        
+        .service-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+        
+        .features-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .feature-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: #666;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <!-- Services Header -->
+    <section class="services-header">
+        <div class="container">
+            <h1 class="services-title">خدمات باشگاه</h1>
+            <p class="services-subtitle">با بهترین خدمات و امکانات به اهداف خود برسید</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">خدمات ما</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="{% static 'club/gym1.jpg' %}" alt="بدنسازی">
+                            <div class="service-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">{{service2.name}}</h3>
+                            <p class="service-description">سالن بدنسازی مجهز با جدیدترین دستگاه‌ها و مربیان حرفه‌ای برای رسیدن به تناسب اندام ایده‌آل.</p>
+                            <div class="service-features">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>دستگاه‌های پیشرفته</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>مربیان شخصی</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>برنامه‌های تخصصی</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'schedule' service2.id %}" class="service-btn">رزرو کنید</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="{% static 'club/pool1.jpg' %}" alt="شنا">
+                            <div class="service-icon">
+                                <i class="fas fa-swimmer"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">{{service3.name}}</h3>
+                            <p class="service-description">استخر  با آب تمیز و گرم، مناسب برای تمام سنین و سطوح مهارت.</p>
+                            <div class="service-features">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>کلاس‌های آموزشی</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>آب درمانی</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>سالن سونا</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'schedule' service3.id %}" class="service-btn">رزرو کنید</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="{% static 'club/field1.jpg' %}" alt="فوتسال">
+                            <div class="service-icon">
+                                <i class="fas fa-futbol"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">{{service1.name}}</h3>
+                            <p class="service-description">سالن استاندارد با بهترین کیفیت برای برگزاری مسابقات و تمرینات.</p>
+                            <div class="service-features">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>سالن درجه یک</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>مربیان حرفه‌ای</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>رختکن مجهز</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'schedule' service1.id %}" class="service-btn">رزرو کنید</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="{% static 'club/unnatrual2.jpg' %}" alt="زمین‌چمن‌مصنوعی">
+                            <div class="service-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">{{service4.name}}</h3>
+                            <p class="service-description">زمین‌های چمن مصنوعی استاندارد با بهترین کیفیت برای برگزاری مسابقات و تمرینات.</p>
+                            <div class="service-features">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>کلاس‌های متنوع</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>روشنایی استاندارد</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>محیط پرانرژی</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'schedule' service4.id %}" class="service-btn">رزرو کنید</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="{% static 'club/bof1.jpg' %}" alt="کافه">
+                            <div class="service-icon">
+                                <i class="fas fa-coffee"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">{{service5.name}}</h3>
+                            <p class="service-description">کافه‌ای با منوی سالم و پروتئینی برای تأمین انرژی مورد نیاز بعد از تمرینات.</p>
+                            <div class="service-features">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>منوی سالم</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>آبمیوه‌های طبیعی</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>محیط دلنشین</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'schedule' service5.id %}" class="service-btn">منوی کافه</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="{% static 'club/parking.jpg' %}" alt="پارکینگ">
+                            <div class="service-icon">
+                                <i class="fas fa-parking"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">{{service6.name}}</h3>
+                            <p class="service-description">پارکینگ امن و سرپوشیده با ظرفیت بالا برای راحتی مراجعین باشگاه.</p>
+                            <div class="service-features">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>ظرفیت 200 خودرو</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>امنیت 24 ساعته</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>دسترسی آسان</span>
+                                </div>
+                            </div>
+                            <a href="{% url 'schedule' service6.id %}" class="service-btn">اطلاعات بیشتر</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">چرا ما را انتخاب کنید؟</h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3 class="feature-title">تخصص و تجربه</h3>
+                        <p class="feature-description">کادر مجرب با سال‌ها تجربه در زمینه ورزش و تناسب اندام</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="feature-title">تجهیزات پیشرفته</h3>
+                        <p class="feature-description">به‌روزترین دستگاه‌ها و تجهیزات ورزشی دنیا</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="feature-title">دسترسی 24 ساعته</h3>
+                        <p class="feature-description">امکان استفاده از خدمات باشگاه در تمام ساعات شبانه‌روز</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">محیط دوستانه</h3>
+                        <p class="feature-description">فضایی گرم و صمیمی برای ورزش و تفریح</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">آماده شروع هستید؟</h2>
+            <p class="cta-subtitle">همین امروز عضو باشگاه ما شوید و به سمت سلامتی و تناسب اندام قدم بردارید</p>
+            <a href="{% url 'signin' %}" class="cta-btn">همین حالا ثبت‌نام کنید</a>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock content %}
